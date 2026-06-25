@@ -11,7 +11,9 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-
+    
+    
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -24,6 +26,18 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+//            Button(action: {
+//                print("Botão pressionado!")
+//            }) {
+//                Text("Clique Aqui")
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//            }
+//            .buttonStyle(AfundaButtonStyle())
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
