@@ -12,45 +12,49 @@ struct GameButtonStyle: ButtonStyle {
     var deepColor: Color = Color("ButtonBackground")
     var borderColor: Color = Color("ButtonBorder")
     
+    var faceColorDisabled: Color = Color("ButtonPurpleDisabled")
+    var deepColorDisabled: Color = Color("ButtonBackgroundDisabled")
+    var FontDisabled: Color = Color("FontDisabled")
+    
+    @Environment(\.isEnabled) private var isEnabled
+    
     private let borderWidth: CGFloat = 7
     private let lipHeight: CGFloat = 6
     
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
-//          Borda externa
+            // Borda externa
             Capsule()
                 .fill(borderColor)
-                .shadow(radius: 1, x:0, y:2)
+                .shadow(radius: 1, x: 0, y: 2)
             
-//          Cor principal
+            // Cor principal
             Capsule()
-                .fill(deepColor)
+                .fill(isEnabled ? deepColor : deepColorDisabled)
                 .padding(borderWidth)
             
-//          Borda estática
+            // Face do botão
             Capsule()
-            
-                .fill(faceColor)
+                .fill(isEnabled ? faceColor : faceColorDisabled)
                 .padding(borderWidth)
                 .shadow(color: .white.opacity(0.3), radius: 0, x: 0, y: 4)
                 .overlay(
                     configuration.label
-                        .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(isEnabled ? .white : FontDisabled)
+                            .font(.custom("ElmsSans-Bold", size: 20))
                 )
-                
-                .offset(y: configuration.isPressed ? 0 : -lipHeight*1.6)
+                .offset(y: configuration.isPressed ? 0 : -lipHeight * 1.6)
         }
         .frame(height: 60)
         .animation(.easeOut(duration: 0.08), value: configuration.isPressed)
     }
 }
-
    
 #Preview {
     Button("Continue") {
 
     }
+    .font(.custom("ElmsSans-Bold", size: 20))
     .frame(maxWidth: .infinity)
     .buttonStyle(GameButtonStyle())
     .padding(.horizontal, 24)
