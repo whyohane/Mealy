@@ -29,6 +29,11 @@
 			path = Mealy;
 			sourceTree = "<group>";
 		};
+		1DE9B32C2FEDBCDB004464FD /* CustomFont */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CustomFont;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 		1DBC214D2FE3003400A049F3 = {
 			isa = PBXGroup;
 			children = (
+				1DE9B32C2FEDBCDB004464FD /* CustomFont */,
 				1DBC21582FE3003400A049F3 /* Mealy */,
 				1DBC21572FE3003400A049F3 /* Products */,
 			);
@@ -75,6 +81,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				1DBC21582FE3003400A049F3 /* Mealy */,
+				1DE9B32C2FEDBCDB004464FD /* CustomFont */,
 			);
 			name = Mealy;
 			packageProductDependencies = (
