@@ -1,0 +1,60 @@
+//
+//  YourMeals.swift
+//  Mealy
+//
+//  Created by Yohane Cavalcante on 28/06/26.
+//
+
+import SwiftUI
+
+struct YourMealsView: View {
+    
+    @State private var userName: String = ""
+    
+    var body: some View {
+        NavigationStack{
+            ZStack {
+                LinearGradient(
+                    colors: [
+                        Color(.systemBackground),
+                        Color("GradientBackground")
+                    ],
+                    startPoint: .center,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                VStack(alignment: .leading) {
+                    Text("How many meals do you eat every day?")
+                        .font(.custom("ElmsSans-SemiBold", size: 20))
+                        .foregroundStyle(.primary)
+                    BasicTextField(placeholder: "Type here your name...", text: $userName)
+                        .padding(.bottom, 15)
+                    
+                    Button("Continue") {
+                        
+                    }
+                    .font(.custom("ElmsSans-Bold", size: 20))
+                    .disabled(userName.isEmpty)
+                    .frame(maxWidth: .infinity)
+                    .buttonStyle(GameButtonStyle())
+                    Spacer()
+                    
+                    Image("AbacaxiOpacity")
+                    
+                }
+                .padding(.horizontal)
+                .ignoresSafeArea(edges: .bottom)
+            }
+            .navigationTitle(Text("Mealy"))
+//            .font(.custom("ElmsSans-SemiBold", size: 15))
+            .toolbarTitleDisplayMode(.inline)
+            
+            
+        }
+    }
+}
+
+#Preview {
+    YourMealsView()
+}
