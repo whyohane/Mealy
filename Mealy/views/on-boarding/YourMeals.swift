@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct YourMealsView: View {
+struct YourMeals: View {
     
     @State private var userName: String = ""
     
@@ -28,7 +28,7 @@ struct YourMealsView: View {
                     Text("How many meals do you eat every day?")
                         .font(.custom("ElmsSans-SemiBold", size: 20))
                         .foregroundStyle(.primary)
-                    BasicTextField(placeholder: "Type here your name...", text: $userName)
+                    BasicTextField(placeholder: "Select the number...", text: $userName)
                         .padding(.bottom, 15)
                     
                     Button("Continue") {
@@ -46,15 +46,27 @@ struct YourMealsView: View {
                 .padding(.horizontal)
                 .ignoresSafeArea(edges: .bottom)
             }
-            .navigationTitle(Text("Mealy"))
-//            .font(.custom("ElmsSans-SemiBold", size: 15))
+            .navigationTitle("Mealy") // Simplificado (apenas a String)
             .toolbarTitleDisplayMode(.inline)
-            
-            
+            .toolbar {
+                // 1. Corrigido para .topBarLeading
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+//                        dismiss()
+                    } label: {
+                        // 2. Corrigido de traço para ponto
+                        Image(systemName: "chevron.backward")
+                            .fontWeight(.semibold) // Se quiser engrossar o ícone
+                    }
+                }
+            }
+            // NOTA: Lembre-se de adicionar isso para o botão nativo sumir:
+            .navigationBarBackButtonHidden(true)
+                
+            }
         }
     }
-}
-
-#Preview {
-    YourMealsView()
-}
+    
+    #Preview {
+        YourMeals()
+    }

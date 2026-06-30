@@ -32,7 +32,8 @@ struct YourNameView: View {
                         .padding(.bottom, 15)
                     
                     Button("Continue") {
-                        
+//                        YourMealsView(userName: userName)
+
                     }
                     .font(.custom("ElmsSans-Bold", size: 20))
                     .disabled(userName.isEmpty)
