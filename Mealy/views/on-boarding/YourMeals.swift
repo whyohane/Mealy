@@ -40,7 +40,7 @@ struct YourMealsView: View {
                     .buttonStyle(GameButtonStyle())
                     Spacer()
                     
-                    Image("AbacaxiOpacity")
+                    Image("UvaOpacity")
                     
                 }
                 .padding(.horizontal)
