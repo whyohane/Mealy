@@ -8,54 +8,48 @@
 import SwiftUI
 
 struct YourNameView: View {
-    
-    @State private var userName: String = ""
+    @State private var viewModel = OnboardingViewModel()
+    @State private var shouldShowMealsView = false
     
     var body: some View {
-        NavigationStack{
-            ZStack {
-                LinearGradient(
-                    colors: [
-                        Color(.systemBackground),
-                        Color("GradientBackground")
-                    ],
-                    startPoint: .center,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
-                
-                VStack(alignment: .leading) {
-                    Text("What's your name?")
-                        .font(.custom("ElmsSans-SemiBold", size: 20))
-                        .foregroundStyle(.primary)
-                    BasicTextField(placeholder: "Type here your name...", text: $userName)
-                        .padding(.bottom, 15)
-                    
-                    Button("Continue") {
-//                        YourMealsView(userName: userName)
-
-                    }
-                    .font(.custom("ElmsSans-Bold", size: 20))
-                    .disabled(userName.isEmpty)
-                    .frame(maxWidth: .infinity)
-                    .buttonStyle(GameButtonStyle())
-                    Spacer()
-                    
-                    Image("AbacaxiOpacity")
-                    
-                }
-                .padding(.horizontal)
-                .ignoresSafeArea(edges: .bottom)
+        @Bindable var viewModel = viewModel
+        
+        return VStack(alignment: .leading) {
+            Text("What's your name?")
+                .font(.custom("ElmsSans-SemiBold", size: 20))
+                .foregroundStyle(.primary)
+            BasicTextField(placeholder: "Type here your name...", text: $viewModel.userName)
+            
+            if let nameErrorMessage = viewModel.nameErrorMessage {
+                Text(nameErrorMessage)
+                    .font(.custom("ElmsSans-Medium", size: 14))
+                    .foregroundStyle(.red)
             }
-            .navigationTitle(Text("Mealy"))
-//            .font(.custom("ElmsSans-SemiBold", size: 15))
-            .toolbarTitleDisplayMode(.inline)
             
+            Button("Continue") {
+                guard viewModel.validateName() else { return }
+                shouldShowMealsView = true
+            }
+            .padding(.top, 10)
+            .font(.custom("ElmsSans-Bold", size: 20))
+            .frame(maxWidth: .infinity)
+            .buttonStyle(GameButtonStyle())
+            Spacer()
             
+            Image("Blueberry")
+        }
+        .padding(.horizontal)
+        .ignoresSafeArea(edges: .bottom)
+        .navigationTitle(Text("Mealy"))
+        .toolbarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $shouldShowMealsView) {
+            YourMeals()
         }
     }
 }
 
 #Preview {
-    YourNameView()
+    NavigationStack {
+        YourNameView()
+    }
 }

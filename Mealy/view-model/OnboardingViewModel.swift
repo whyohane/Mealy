@@ -11,13 +11,13 @@ import Observation
 @Observable
 final class OnboardingViewModel {
     var userName: String = ""
-    var mealsPerDay: String = ""
+    var mealsPerDay: Int = 1
     var nameErrorMessage: String?
     var mealsErrorMessage: String?
     
     func validateName() -> Bool {
         guard isFieldFilled(userName) else {
-            nameErrorMessage = "Nome vazio"
+            nameErrorMessage = "Your name is empty"
             return false
         }
         
@@ -26,15 +26,15 @@ final class OnboardingViewModel {
     }
     
     func validateMeals() -> Bool {
-        guard isFieldFilled(mealsPerDay) else {
-            mealsErrorMessage = "Quantidade de refeições vazia"
+        guard mealsPerDay > 0 else {
+            mealsErrorMessage = "Select the number of meals"
             return false
         }
         
         mealsErrorMessage = nil
         return true
     }
-    
+        
     private func isFieldFilled(_ text: String) -> Bool {
         !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
