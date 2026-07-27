@@ -36,7 +36,7 @@ struct SetDailyMealsView: View {
                     Image(systemName: "plus")
                         .fontWeight(.semibold)
                 }
-                .tint(Color(.indigo))
+                .tint(Color.indigo)
             }
         }
     }
