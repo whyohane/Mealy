@@ -7,54 +7,76 @@
 
 import SwiftUI
 
-struct YourMealsView: View {
-    
-    @State private var userName: String = ""
+struct YourMeals: View {
+    @State private var viewModel = OnboardingViewModel()
+    @State private var shouldShowDailyMealsView: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack{
-            ZStack {
-                LinearGradient(
-                    colors: [
-                        Color(.systemBackground),
-                        Color("GradientBackground")
-                    ],
-                    startPoint: .center,
-                    endPoint: .bottom
+        @Bindable var viewModel = viewModel
+        
+        return VStack(alignment: .leading) {
+            Text("How many meals do you eat every day?")
+                .font(.custom("ElmsSans-SemiBold", size: 20))
+                .foregroundStyle(.primary)
+            NumberPickerField(
+                placeholder: "Select the number...",
+                options: Array(1...10),
+                selected: Binding(
+                    get: { viewModel.mealsPerDay },
+                    set: { viewModel.mealsPerDay = $0 ?? 1 }
                 )
-                .ignoresSafeArea()
-                
-                VStack(alignment: .leading) {
-                    Text("How many meals do you eat every day?")
-                        .font(.custom("ElmsSans-SemiBold", size: 20))
-                        .foregroundStyle(.primary)
-                    BasicTextField(placeholder: "Type here your name...", text: $userName)
-                        .padding(.bottom, 15)
-                    
-                    Button("Continue") {
-                        
-                    }
-                    .font(.custom("ElmsSans-Bold", size: 20))
-                    .disabled(userName.isEmpty)
-                    .frame(maxWidth: .infinity)
-                    .buttonStyle(GameButtonStyle())
-                    Spacer()
-                    
-                    Image("UvaOpacity")
-                    
-                }
-                .padding(.horizontal)
-                .ignoresSafeArea(edges: .bottom)
+            )
+            
+            if let mealsErrorMessage = viewModel.mealsErrorMessage {
+                Text(mealsErrorMessage)
+                    .font(.custom("ElmsSans-Medium", size: 14))
+                    .foregroundStyle(.red)
             }
-            .navigationTitle(Text("Mealy"))
-//            .font(.custom("ElmsSans-SemiBold", size: 15))
-            .toolbarTitleDisplayMode(.inline)
             
+            Button("Continue") {
+                
+                shouldShowDailyMealsView = true
+                guard viewModel.validateMeals() else { return }
+            }
+            .padding(.top, 10)
+            .font(.custom("ElmsSans-Bold", size: 20))
+            .frame(maxWidth: .infinity)
+            .buttonStyle(GameButtonStyle())
+
+            Spacer()
             
+        }
+        .padding(.horizontal, 20)
+        .font(.custom("ElmsSans-Bold", size: 20))
+        .frame(maxWidth: .infinity)
+        .buttonStyle(GameButtonStyle())
+        .overlay(alignment: .bottom) {
+            AbacaxinhoView()
+                .padding(.bottom, -15)
+        }
+        .ignoresSafeArea(edges: .bottom)
+        .navigationTitle(Text("Mealy"))
+        .toolbarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .fontWeight(.semibold)
+                }
+            }
+        }
+        .navigationDestination(isPresented: $shouldShowDailyMealsView) {
+           SetDailyMealsView()
         }
     }
 }
 
 #Preview {
-    YourMealsView()
+    NavigationStack {
+        YourMeals()
+    }
 }

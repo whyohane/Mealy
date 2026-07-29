@@ -94,7 +94,7 @@ struct PickerField: View {
                     )
                 Spacer()
                 Image(systemName: "chevron.up.chevron.down")
-                    .foregroundStyle(Color(.tertiaryLabel))
+                    .foregroundStyle(Color(.secondaryLabel))
                     .font(.caption)
             }
             .padding(12)
@@ -112,5 +112,44 @@ struct PickerField: View {
         }
         .buttonStyle(.plain)
         
+    }
+}
+
+struct NumberPickerField: View {
+    let placeholder: String
+    let options: [Int]
+    @Binding var selected: Int?
+    let defaultValue: Int = 1
+    @State private var isFocused = true
+    let feedback = UIImpactFeedbackGenerator(style: .soft)
+
+    var body: some View {
+        Menu {
+            ForEach(options, id: \.self) { option in
+                Button("\(option)") {
+                    selected = option
+                }
+            }
+        } label: {
+            HStack {
+                Text(selected == nil ? placeholder : "\(selected!)")
+                    .foregroundStyle(selected == nil ? Color(.tertiaryLabel) : Color(.label))
+
+                Spacer()
+
+                Image(systemName: "chevron.up.chevron.down")
+                    .foregroundStyle(Color(.secondaryLabel))
+                    .font(.caption)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.systemBackground))
+                    .stroke(Color.indigo, lineWidth: 2)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 }
