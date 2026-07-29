@@ -46,11 +46,17 @@ struct YourMeals: View {
 
             Spacer()
             
-            Image("Abacaxinho")
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
+        .font(.custom("ElmsSans-Bold", size: 20))
+        .frame(maxWidth: .infinity)
+        .buttonStyle(GameButtonStyle())
+        .overlay(alignment: .bottom) {
+            AbacaxinhoView()
+                .padding(.bottom, -15)
+        }
         .ignoresSafeArea(edges: .bottom)
-        .navigationTitle("Mealy")
+        .navigationTitle(Text("Mealy"))
         .toolbarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {

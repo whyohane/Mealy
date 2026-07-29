@@ -1,5 +1,5 @@
 //
-//  BlueberryView.swift
+//  AbacaxinhoView.swift
 //  Mealy
 //
 //  Created by Yohane Cavalcante on 27/07/26.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct BlueberryView: View {
+struct AbacaxinhoView: View {
     
     var scale: CGFloat = 1
 
@@ -17,21 +17,21 @@ struct BlueberryView: View {
 
     var body: some View {
         ZStack {
-            Image("Blueberry-body")
+            Image("Abacaxinho-body")
 
-            Image("Blueberry-eye-left")
+            Image("Abacaxinho-eye-left")
                 .scaleEffect(y: isBlinking ? 0.08 : 1, anchor: .center)
-                .offset(x: -55, y: 75)
+                .offset(x: 55, y: 85)
 
-            Image("Blueberry-eye-right")
+            Image("Abacaxinho-eye-right")
                 .scaleEffect(y: isBlinking ? 0.08 : 1, anchor: .center)
-                .offset(x: 55, y: 75)
+                .offset(x: -55, y: 85)
 
-            Image("Blueberry-cheeks")
-                .offset(y: 110)
+            Image("Abacaxinho-cheeks")
+                .offset(y: 120)
 
-            Image("Blueberry-mouth")
-                .offset(y: 105)
+            Image("Abacaxinho-mouth")
+                .offset(y: 135)
         }
         .offset(y: isFloating ? -12 : 0)
         .scaleEffect((isFloating ? 1.03 : 1) * scale, anchor: .bottom)
@@ -66,5 +66,5 @@ struct BlueberryView: View {
 }
 
 #Preview {
-    BlueberryView()
+    AbacaxinhoView()
 }

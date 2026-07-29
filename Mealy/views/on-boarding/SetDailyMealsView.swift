@@ -36,8 +36,10 @@ struct SetDailyMealsView: View {
                     Image(systemName: "plus")
                         .fontWeight(.semibold)
                 }
-                .tint(Color.indigo)
+                .buttonStyle(.glassProminent)
+                .tint(Color("ButtonPurple"))
             }
+            
         }
     }
 }
