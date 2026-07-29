@@ -16,6 +16,7 @@ struct GameButtonStyle: ButtonStyle {
     var deepColorDisabled: Color = Color("ButtonBackgroundDisabled")
     var FontDisabled: Color = Color("FontDisabled")
     
+    let feedback = UIImpactFeedbackGenerator(style: .soft)
     @Environment(\.isEnabled) private var isEnabled
     
     private let borderWidth: CGFloat = 7
@@ -47,6 +48,11 @@ struct GameButtonStyle: ButtonStyle {
         }
         .frame(height: 60)
         .animation(.easeOut(duration: 0.08), value: configuration.isPressed)
+        .onChange(of: configuration.isPressed) { _, isPressed in
+            if isPressed {
+                feedback.impactOccurred()
+            }
+        }
     }
 }
    
