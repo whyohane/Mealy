@@ -1,39 +1,36 @@
 //
-//  BlueberryView.swift
+//  MoranguView.swift
 //  Mealy
 //
-//  Created by Yohane Cavalcante on 27/07/26.
+//  Created by Yohane Cavalcante on 04/08/26.
 //
 
 import SwiftUI
 
 
-struct BlueberryView: View {
+struct MoranguView: View {
     
     var scale: CGFloat = 1
-
+    
     @State private var isFloating = false
     @State private var isBlinking = false
-
+    
     var body: some View {
         ZStack {
-            Image("Blueberry-body")
+            Image("Morangu-body")
 
-            Image("Blueberry-eye-left")
+            Image("Morangu-eye-left")
                 .scaleEffect(y: isBlinking ? 0.08 : 1, anchor: .center)
-                .offset(x: -55, y: 75)
+                .offset(x: -58, y: 75)
                 .animation(.easeInOut(duration: 0.08), value: isBlinking)
 
-            Image("Blueberry-eye-right")
+            Image("Morangu-eye-right")
                 .scaleEffect(y: isBlinking ? 0.08 : 1, anchor: .center)
-                .offset(x: 55, y: 75)
+                .offset(x: 58, y: 75)
                 .animation(.easeInOut(duration: 0.08), value: isBlinking)
 
-            Image("Blueberry-cheeks")
+            Image("Morangu-mouth")
                 .offset(y: 110)
-
-            Image("Blueberry-mouth")
-                .offset(y: 105)
         }
         .offset(y: isFloating ? -12 : 0)
         .scaleEffect((isFloating ? 1.03 : 1) * scale, anchor: .bottom)
@@ -58,5 +55,5 @@ struct BlueberryView: View {
 }
 
 #Preview {
-    BlueberryView()
+    MoranguView()
 }

@@ -1,28 +1,24 @@
 //
-//  SetDailyMealsView.swift
+//  PreferencesJourneyView.swift
 //  Mealy
 //
-//  Created by Yohane Cavalcante on 24/07/26.
+//  Created by Yohane Cavalcante on 04/08/26.
 //
-
 import SwiftUI
 
-struct SetDailyMealsView: View {
-    
+struct PreferencesJourneyView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var shouldShowPreferencesJourneyView: Bool = false
     
     var body: some View {
+        
         return VStack(alignment: .leading, spacing: 20) {
-            Text("Set your daily meals")
+            Text("Choose your journey")
                 .font(.custom("ElmsSans-SemiBold", size: 20))
                 .foregroundStyle(.primary)
-            
-            Button("Continue") {
-                shouldShowPreferencesJourneyView = true
-            }
-            .buttonStyle(GameButtonStyle())
+            JourneysView()
+                .clipShape(RoundedRectangle(cornerRadius: 20))
             Spacer()
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal)
@@ -37,28 +33,11 @@ struct SetDailyMealsView: View {
                 } label: {
                     Image(systemName: "chevron.backward")
                         .fontWeight(.semibold)
-                        .symbolEffectsRemoved()
                 }
             }
-
-            ToolbarItem(placement: .confirmationAction) {
-                Button {
-
-                } label: {
-                    Image(systemName: "plus")
-                        .fontWeight(.semibold)
-                        .symbolEffectsRemoved()
-                }
-                .buttonStyle(.glassProminent)
-                .tint(Color("ButtonPurple"))
-            }
-
-        }
-        .navigationDestination(isPresented: $shouldShowPreferencesJourneyView) {
-           PreferencesJourneyView()
         }
         .overlay(alignment: .bottom) {
-            MoranguView()
+            LaranjicaView()
                 .padding(.bottom, -15)
         }
         .ignoresSafeArea(edges: .bottom)
@@ -66,6 +45,6 @@ struct SetDailyMealsView: View {
 }
 #Preview {
     NavigationStack {
-        SetDailyMealsView()
+        PreferencesJourneyView()
     }
 }

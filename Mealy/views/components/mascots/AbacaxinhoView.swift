@@ -36,12 +36,10 @@ struct AbacaxinhoView: View {
         .offset(y: isFloating ? -12 : 0)
         .scaleEffect((isFloating ? 1.03 : 1) * scale, anchor: .bottom)
         .frame(maxWidth: .infinity)
-        .animation(
-            .easeInOut(duration: 1.2).repeatForever(autoreverses: true),
-            value: isFloating
-        )
         .onAppear {
-            isFloating = true
+            withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
+                isFloating = true
+            }
         }
         .task {
             await blinkEyes()
