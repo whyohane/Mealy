@@ -12,6 +12,7 @@ import Observation
 final class OnboardingViewModel {
     var userName: String = ""
     var mealsPerDay: Int = 1
+    var meals: [Meal] = []
     var nameErrorMessage: String?
     var mealsErrorMessage: String?
     
@@ -34,7 +35,16 @@ final class OnboardingViewModel {
         mealsErrorMessage = nil
         return true
     }
-        
+
+    /// Adjusts `meals` to match `mealsPerDay`, keeping what the user already filled in.
+    func prepareMeals() {
+        if meals.count > mealsPerDay {
+            meals.removeLast(meals.count - mealsPerDay)
+        } else {
+            meals.append(contentsOf: (meals.count..<mealsPerDay).map { _ in Meal() })
+        }
+    }
+
     private func isFieldFilled(_ text: String) -> Bool {
         !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

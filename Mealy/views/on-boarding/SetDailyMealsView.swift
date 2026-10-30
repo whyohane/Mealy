@@ -9,15 +9,25 @@ import SwiftUI
 
 struct SetDailyMealsView: View {
     
+    @Bindable var viewModel: OnboardingViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var shouldShowPreferencesJourneyView: Bool = false
-    
+
     var body: some View {
         return VStack(alignment: .leading, spacing: 20) {
             Text("Set your daily meals")
                 .font(.custom("ElmsSans-SemiBold", size: 20))
                 .foregroundStyle(.primary)
-            
+
+            // One card per meal the user chose in the previous step
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach($viewModel.meals) { $meal in
+                        MealCardView(meal: $meal)
+                    }
+                }
+            }
+
             Button("Continue") {
                 shouldShowPreferencesJourneyView = true
             }
@@ -65,7 +75,10 @@ struct SetDailyMealsView: View {
     }
 }
 #Preview {
-    NavigationStack {
-        SetDailyMealsView()
+    let viewModel = OnboardingViewModel()
+    viewModel.mealsPerDay = 3
+    viewModel.prepareMeals()
+    return NavigationStack {
+        SetDailyMealsView(viewModel: viewModel)
     }
 }

@@ -21,7 +21,7 @@ struct YourMeals: View {
                 .foregroundStyle(.primary)
             NumberPickerField(
                 placeholder: "Select the number...",
-                options: Array(1...10),
+                options: Array(1...5),
                 selected: Binding(
                     get: { viewModel.mealsPerDay },
                     set: { viewModel.mealsPerDay = $0 ?? 1 }
@@ -35,9 +35,9 @@ struct YourMeals: View {
             }
             
             Button("Continue") {
-                
-                shouldShowDailyMealsView = true
                 guard viewModel.validateMeals() else { return }
+                viewModel.prepareMeals()
+                shouldShowDailyMealsView = true
             }
             .padding(.top, 10)
             .font(.custom("ElmsSans-Bold", size: 20))
@@ -70,7 +70,7 @@ struct YourMeals: View {
             }
         }
         .navigationDestination(isPresented: $shouldShowDailyMealsView) {
-           SetDailyMealsView()
+           SetDailyMealsView(viewModel: viewModel)
         }
     }
 }
