@@ -25,7 +25,7 @@ struct MealCardView: View {
 
                 TextField("Ex.: Breakfast", text: $meal.name)
                     .font(.custom("PlusJakartaSans-Medium", size: 17))
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 10)
                     .frame(height: 34)
                     .background(Capsule().fill(Color(.systemGray6)))
             }
@@ -35,14 +35,24 @@ struct MealCardView: View {
                     .font(.custom("PlusJakartaSans-Medium", size: 20))
                     .foregroundStyle(.primary)
 
-                DatePicker("Time", selection: $meal.time, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                    .padding(.horizontal, 8)
+                // O DatePicker compacto não aceita fonte customizada, então mostramos
+                // um Text estilizado e deixamos o DatePicker quase invisível por cima
+                // para continuar recebendo o toque.
+                Text(meal.time, format: .dateTime.hour().minute())
+                    .font(.custom("PlusJakartaSans-Medium", size: 17))
+                    .foregroundStyle(Color(.systemGray6))
+                    .padding(.horizontal, 10)
                     .frame(height: 34)
                     .background(Capsule().fill(Color(.systemGray6)))
+                    .overlay {
+                        DatePicker("Time", selection: $meal.time, displayedComponents: .hourAndMinute)
+                            .labelsHidden()
+                            .opacity(0.1)
+                    }
+                    .clipShape(Capsule())
             }
         }
-        .padding(.leading, 26)
+        .padding(.leading, 15)
         .padding(.trailing, 15)
         .frame(maxWidth: .infinity)
         .frame(height: 96)
